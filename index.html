@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImanDaily - Teman Ibadahmu</title>
+    <style>
+        :root {
+            --primary: #15803d; /* Warna Hijau Islami */
+            --secondary: #dcfce7;
+            --bg-color: #f3f4f6;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Simulasi Layar HP */
+        .app-container {
+            background-color: white;
+            width: 100%;
+            max-width: 400px;
+            height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Section Kebiasaan */
+        .section {
+            padding: 20px;
+            border-bottom: 5px solid var(--bg-color);
+        }
+
+        .section h2 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-top: 0;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 5px;
+        }
+
+        .habit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .habit-item input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #e5e7eb;
+            border-radius: 10px;
+            margin-top: 15px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Chatbot Pak Ustad */
+        .chatbot-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .chatbot-header img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 2px solid var(--secondary);
+        }
+
+        .chatbot-header div h3 {
+            margin: 0;
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .chatbot-header div p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .chat-window {
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            height: 200px;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .bubble {
+            max-width: 80%;
+            padding: 10px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .bubble.ustad {
+            background-color: white;
+            color: var(--text-main);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .bubble.user {
+            background-color: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary);
+        }
+
+        .chat-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .chat-input button:hover {
+            background-color: #166534;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1>ImanDaily</h1>
+            <p>Assalamu'alaikum. Mari jadikan hari ini penuh berkah.</p>
+        </header>
+
+        <div class="section">
+            <h2>Jadwal & Target Harian</h2>
+            
+            <label class="habit-item"><input type="checkbox" class="habit-check"> Salat Subuh</label>
+            <label class="habit-item"><input type="checkbox" class="habit-check"> Salat Dzuhur</label>
+            <label class="habit-item"><input type="checkbox" class="habit-check"> Salat Ashar</label>
+            <label class="habit-item"><input type="checkbox" class="habit-check"> Salat Maghrib</label>
+            <label class="habit-item"><input type="checkbox" class="habit-check"> Salat Isya</label>
+            <label class="habit-item"><input type="checkbox" class="habit-check"> Tilawah Al-Qur'an (Min. 1 Halaman)</label>
+            <label class="habit-item"><input type="checkbox" class="habit-check"> Sedekah / Berbuat Baik</label>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span class="progress-text" id="progressText">0% Selesai hari ini</span>
+        </div>
+
+        <div class="section" style="flex: 1; border-bottom: none;">
+            <h2>Tanya Pak Ustad (AI)</h2>
+            
+            <div class="chatbot-header">
+                <img src="https://ui-avatars.com/api/?name=Pak+Ustad&background=15803d&color=fff&rounded=true" alt="Pak Ustad">
+                <div>
+                    <h3>Pak Ustad AI</h3>
+                    <p>Aktif - Siap Menjawab</p>
+                </div>
+            </div>
+
+            <div class="chat-window" id="chatWindow">
+                <div class="bubble ustad">Assalamu'alaikum. Saya Ustad AI, asisten virtual untuk membantu Anda memahami agama secara praktis. Ada yang bisa saya bantu hari ini?</div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Tanyakan soal wudhu, salat, dll..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Kirim</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Logika untuk Progress Bar Kebiasaan
+        const checkboxes = document.querySelectorAll('.habit-check');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        function updateProgress() {
+            const total = checkboxes.length;
+            const checkedCount = document.querySelectorAll('.habit-check:checked').length;
+            const percentage = Math.round((checkedCount / total) * 100);
+            
+            progressBar.style.width = percentage + '%';
+            progressText.innerText = percentage + '% Selesai hari ini';
+        }
+
+        checkboxes.forEach(box => {
+            box.addEventListener('change', updateProgress);
+        });
+
+        // Logika untuk Chatbot Pak Ustad AI
+        const chatWindow = document.getElementById('chatWindow');
+        const chatInput = document.getElementById('chatInput');
+
+        function appendMessage(sender, text) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble', sender);
+            bubble.innerText = text;
+            chatWindow.appendChild(bubble);
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll ke bawah
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (text === '') return;
+
+            // Tampilkan pesan user
+            appendMessage('user', text);
+            chatInput.value = '';
+
+            // Simulasi AI membalas (delay 1 detik)
+            setTimeout(() => {
+                getUstadResponse(text.toLowerCase());
+            }, 1000);
+        }
+
+        function getUstadResponse(query) {
+            let response = "";
+
+            // Simulasi logika AI membalas pertanyaan dasar
+            if (query.includes('sedekah')) {
+                response = "Sedekah tidak harus selalu berupa uang yang banyak. Senyum kepada saudara, menyingkirkan duri dari jalan, atau membagikan makanan kecil juga termasuk sedekah. Mulailah dari yang paling mudah dilakukan hari ini.";
+            } else if (query.includes('quran') || query.includes('mengaji')) {
+                response = "Membaca Al-Qur'an walau hanya satu ayat sangat besar pahalanya. Jika belum lancar terbata-bata, pahalanya justru dua: pahala membaca dan pahala kesungguhan belajarnya. Tetap semangat!";
+            } else if (query.includes('salat') || query.includes('sholat')) {
+                response = "Salat adalah tiang agama dan amalan yang pertama kali dihisab. Jika masih sering tertinggal, cobalah pasang alarm dan langsung ambil wudhu saat azan berkumandang agar tidak menunda-nunda.";
+            } else if (query.includes('bingung') || query.includes('malas')) {
+                response = "Perasaan malas adalah hal wajar bagi manusia. Namun, cobalah paksakan diri walau terasa berat. Mintalah pertolongan Allah dengan doa: 'Allahumma inni a'udzu bika minal 'ajzi wal kasal' (Ya Allah, aku berlindung kepada-Mu dari kelemahan dan kemalasan).";
+            } else {
+                response = "Masya Allah, pertanyaan yang bagus. Sebagai asisten AI, saran saya, pastikan niat ibadah selalu ikhlas lillahi ta'ala. Jika ada kebingungan hukum yang kompleks, sangat disarankan untuk bertanya langsung kepada ustadz di masjid terdekat ya.";
+            }
+
+            appendMessage('ustad', response);
+        }
+    </script>
+</body>
+              </html>
